@@ -30,7 +30,6 @@ function App() {
       { title: "Expense 19", date: new Date(2023,5,2), amount: Math.floor(Math.random() * 100) },
       { title: "Expense 20", date: new Date(2023,6,9), amount: Math.floor(Math.random() * 100) }
   ]
-  
   );
 
   const [showYear, setShowYear] = useState(
@@ -52,9 +51,13 @@ function App() {
 
   const deleteExpense = (deleteExpense) => {
     setExpenses((prevExpenses) => {
-      return prevExpenses.filter(expense => expense !== deleteExpense);
+      const updatedExpenses = prevExpenses.filter(expense => expense !== deleteExpense);
+      chooseYear (selectYear, updatedExpenses);
+      return updatedExpenses;
     });
   };
+
+  //deleteExpense的逻辑要注意，应该删选所有项目里的某一项，然后再重新根据年份筛选。否则会出现删除的项目在添加新项目时一起出现的情况。
 
   const chooseYear = (year, exps=expenses) => {
     let showYear;
@@ -72,7 +75,7 @@ function App() {
       <NewExpense onNewExpense={newExpense}></NewExpense>
       <Card className="expenses">
         <ExpensesFilter onChooseYear={chooseYear} onShowYear={showYear} onSelectYear={selectYear}></ExpensesFilter>
-        {showYear.map((expense, index) => (
+        {showYear.length === 0 ? <p>no expense here</p> : showYear.map((expense, index) => (
           <Expense key={index} expense={expense} delete={deleteExpense}></Expense>
         ))}
       </Card>
