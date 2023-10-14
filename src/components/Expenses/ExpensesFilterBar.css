@@ -1,0 +1,17 @@
+.bar{
+    width: 30px;
+    height: 160px;
+    border-radius: 10px;
+    background-color:cadetblue;
+    display: flex;
+    justify-content: center;
+}
+
+.bar-skt{
+    width: 30px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
